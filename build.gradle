@@ -1,0 +1,60 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id "io.qameta.allure" version "2.8.1"
+    id "io.freefair.lombok" version "5.0.0-rc6"
+}
+
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+ext {
+    lombokVersion = '1.18.2'
+    cucumberVersion = '4.2.0'
+}
+
+dependencies {
+    // core tools
+    implementation('com.codeborne:selenide:5.10.0')
+    testImplementation group: 'org.testng', name: 'testng', version: '6.14.3'
+    implementation('io.rest-assured:rest-assured:4.3.0')
+    implementation "io.qameta.allure:allure-gradle:2.8.1"
+
+
+    // validators
+    implementation('io.rest-assured:json-schema-validator:4.3.0')
+    implementation('org.assertj:assertj-core:3.11.1')
+
+    //lombok
+    compileOnly("org.projectlombok:lombok:1.18.2")
+    annotationProcessor("org.projectlombok:lombok:1.18.2")
+
+    //adaptors
+    testImplementation("io.cucumber:cucumber-java:4.2.0")
+    testImplementation("io.cucumber:cucumber-testng:4.2.0")
+    implementation('io.qameta.allure:allure-cucumber3-jvm:2.8.1')
+    implementation('io.qameta.allure:allure-testng:2.12.1')
+
+
+}
+
+allure {
+    version = '2.8.1'
+    autoconfigure = true
+}
+
+test {
+    useTestNG()
+    scanForTestClasses = false
+    testLogging.showStandardStreams = true
+}
