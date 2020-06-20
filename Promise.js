@@ -1,29 +1,30 @@
-// class Promise{
-//     constructor(callback) {
-//         callback(this.resolve)
-//     }
-//     status = "Pending"
-//     _tasks=[]
-//     then = (callback)=>{
-//         this._tasks.push(callback)
-//     }
-//     resolve = (value)=>{
-//         this.status = "Resolved"
-//         this._tasks.forEach(fun=>fun(value))
-//         return this
-//     }
-// }
-//
-// let p = new Promise((resolve)=>{
-//     setTimeout(()=>{
-//         console.log("in promise")
-//         resolve("Value from promise")
-//     },4000)
-// }).then((v)=>{
-//     console.log("value comes from promise "+ v)
-//     return "Hui"
-// })
-// callback hell
+//Custom Promise
+class Promise{
+    constructor(callback) {
+        callback(this.resolve)
+    }
+    status = "Pending"
+    _tasks=[]
+    then = (callback)=>{
+        this._tasks.push(callback)
+    }
+    resolve = (value)=>{
+        this.status = "Resolved"
+        this._tasks.forEach(fun=>fun(value))
+        return this
+    }
+}
+
+let p = new Promise((resolve)=>{
+    setTimeout(()=>{
+        console.log("in promise")
+        resolve("Value from promise")
+    },4000)
+}).then((v)=>{
+    console.log("value comes from promise "+ v)
+    return "Hui"
+})
+// callback hell just Try
 
 function outer(fun) {
     setTimeout(()=>{
